@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
 
     // Remove undefined values
     const cleanParams = Object.fromEntries(
-      Object.entries(params).filter(([_, value]) => value !== undefined)
+      Object.entries(params).filter(([, value]) => value !== undefined)
     );
 
     const data = await rawgApi.getGames(cleanParams);

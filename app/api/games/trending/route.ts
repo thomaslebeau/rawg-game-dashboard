@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { rawgApi } from "@/lib/api/rawg";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const data = await rawgApi.getTrendingGames();
 
