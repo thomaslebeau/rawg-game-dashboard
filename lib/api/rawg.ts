@@ -55,9 +55,31 @@ export const rawgApi = {
     return fetchFromRAWG<GameListResponse>("/games", { params });
   },
 
+  // Get game by ID
+  getGameById: (id: number) => {
+    return fetchFromRAWG<GameDetailResponse>(`/games/${id}`);
+  },
+
   // Get game details by ID or slug
   getGameDetails: (id: string | number) => {
     return fetchFromRAWG<GameDetailResponse>(`/games/${id}`);
+  },
+
+  // Get trending games (ordered by popularity in the last 30 days)
+  getTrendingGames: () => {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const today = new Date();
+
+    const dateRange = `${thirtyDaysAgo.toISOString().split('T')[0]},${today.toISOString().split('T')[0]}`;
+
+    return fetchFromRAWG<GameListResponse>("/games", {
+      params: {
+        dates: dateRange,
+        ordering: "-added",
+        page_size: 20,
+      },
+    });
   },
 
   // Get game screenshots
